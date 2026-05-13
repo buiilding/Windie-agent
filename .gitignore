@@ -17,6 +17,7 @@ frontend/python-runtime/
 frontend/python-runtime.tar.gz
 frontend/python-runtime.no-browsers.tar.gz
 frontend/.windieos-permission-state.json
+scripts/reinstall-windieos-macos.sh
 
 # Environment variables
 .env

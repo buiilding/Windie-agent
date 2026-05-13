@@ -6,6 +6,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Keep the macOS reinstall helper as a local ignored script instead of tracking
+  it in the public client repo.
 - Move the root banner image into `artifacts/` to keep the public client repo
   root cleaner.
 - Fix packaged sidecar runtime archiving so Git Bash tar treats Windows
