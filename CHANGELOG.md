@@ -6,6 +6,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Move the root banner image into `artifacts/` to keep the public client repo
+  root cleaner.
 - Fix packaged sidecar runtime archiving so Git Bash tar treats Windows
   drive-letter paths as local files while macOS Bash can still archive without
   optional tar flags.
