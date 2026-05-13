@@ -16,6 +16,7 @@ frontend/release/
 frontend/python-runtime/
 frontend/python-runtime.tar.gz
 frontend/python-runtime.no-browsers.tar.gz
+frontend/.windie-python-runtime-build-stamp
 frontend/.windieos-permission-state.json
 scripts/reinstall-windieos-macos.sh
 
