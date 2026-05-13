@@ -384,7 +384,7 @@ body.cg-scroll-locked,
 .cg-chat-item-row.active .cg-chat-item {
   background: var(--ui-hover-bg);
   color: var(--ui-text-primary);
-  box-shadow: inset 0 0 0 1px var(--ui-border-subtle);
+  box-shadow: inset 3px 0 0 var(--windie-blue);
 }
 
 .cg-chat-item {
@@ -953,7 +953,7 @@ body.cg-scroll-locked,
 .cg-modal-body::-webkit-scrollbar-thumb:hover,
 .cg-sidebar-content::-webkit-scrollbar-thumb:hover,
 .cg-search-results::-webkit-scrollbar-thumb:hover {
-  background: var(--ui-border-soft);
+  background: rgba(0, 122, 255, 0.42);
 }
 
 @keyframes cg-modal-overlay-enter {

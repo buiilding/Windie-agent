@@ -274,7 +274,8 @@
 }
 
 .clone-settings-row-tts .clone-settings-select-wrap:hover {
-  border-color: var(--ui-text-dim);
+  border-color: rgba(0, 122, 255, 0.42);
+  background: var(--ui-hover-bg);
 }
 
 .clone-settings-row-tts .clone-settings-select-wrap svg {
@@ -303,7 +304,8 @@
 }
 
 .clone-settings-select-shortcut:hover {
-  border-color: var(--ui-text-dim);
+  border-color: rgba(0, 122, 255, 0.42);
+  background: var(--ui-hover-bg);
 }
 
 .clone-settings-select-shortcut svg {
