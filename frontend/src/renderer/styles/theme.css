@@ -30,7 +30,7 @@
 
   --warning: #e3a84f;
   --danger: #f87171;
-  --success: #2bc866;
+  --success: var(--windie-pale);
 
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);

@@ -222,7 +222,7 @@
 }
 
 .clone-settings-action-status-success {
-  color: color-mix(in srgb, #8bd29b 72%, var(--ui-text-primary) 28%);
+  color: var(--windie-pale);
 }
 
 .clone-settings-action-status-error {

@@ -8,7 +8,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 - Align renderer theme, first-run onboarding, permission prompts, and primary
   settings/chat controls with the public WindieOS landing-page black and
-  electric-blue palette.
+  electric-blue palette, including active, selected, granted, and success
+  states.
 - Request the model catalog on renderer startup so packaged installs open the
   hosted backend connection before the chat model controls render.
 - Keep the macOS reinstall helper as a local ignored script instead of tracking
