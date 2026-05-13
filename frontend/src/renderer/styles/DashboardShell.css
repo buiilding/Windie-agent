@@ -384,7 +384,6 @@ body.cg-scroll-locked,
 .cg-chat-item-row.active .cg-chat-item {
   background: var(--ui-hover-bg);
   color: var(--ui-text-primary);
-  box-shadow: inset 3px 0 0 var(--windie-blue);
 }
 
 .cg-chat-item {

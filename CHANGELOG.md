@@ -17,6 +17,7 @@ All notable public-client changes to WindieOS will be documented in this file.
   background.
 - Make outgoing user chat bubbles use the WindieOS blue accent instead of a
   neutral white surface.
+- Remove the left blue inset accent from selected sidebar chat rows.
 - Request the model catalog on renderer startup so packaged installs open the
   hosted backend connection before the chat model controls render.
 - Keep the macOS reinstall helper as a local ignored script instead of tracking
