@@ -543,6 +543,10 @@ find "${RUNTIME_DIR}" -type d -name "__pycache__" -prune -exec rm -rf {} +
 find "${RUNTIME_DIR}" -type f -name "*.pyc" ! -path "${SIDECAR_DST_DIR}/*" -delete
 
 rm -f "${RUNTIME_ARCHIVE}"
-tar -C "${FRONTEND_DIR}" -czf "${RUNTIME_ARCHIVE}" "python-runtime"
+tar_args=()
+if tar --help 2>/dev/null | grep -q -- "--force-local"; then
+  tar_args+=(--force-local)
+fi
+tar "${tar_args[@]}" -C "${FRONTEND_DIR}" -czf "${RUNTIME_ARCHIVE}" "python-runtime"
 
 echo "[build-sidecar-runtime] wrote ${RUNTIME_ARCHIVE}"
