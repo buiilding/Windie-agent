@@ -170,7 +170,8 @@ On `window.storage` for desktop-assistant config keys:
 
 `AppConfigProvider.models.test.tsx` and `storageAndIpc.test.tsx`:
 
-- single-shot list-model request guard
+- single-shot startup list-model request guard that can wake the main-process
+  backend websocket from a disconnected initial snapshot
 - disk config merge applies only when changed
 - no-op when disk config equals current config
 - cross-window storage event sync path

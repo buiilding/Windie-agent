@@ -28,7 +28,7 @@ Provider responsibilities:
   - frontend-owned config state
   - model list loading/refresh
   - backend settings sync
-  - one-shot `list-models` request guard in main dashboard renderer only
+  - one-shot startup `list-models` request guard in main dashboard renderer only
   - IPC status snapshot projection (`backendHttpUrl`, transcript user/session wiring, global stop-shortcut fallback status)
   - disk/localStorage sync
   - wakeword enabled/suppressed state

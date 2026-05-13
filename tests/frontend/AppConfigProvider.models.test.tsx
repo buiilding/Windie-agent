@@ -32,22 +32,13 @@ describe('AppConfigProvider model + config wiring', () => {
     return { settingsHandlers, backendHandler };
   }
 
-  test('registers backend listener before requesting model list after connect', () => {
+  test('registers backend listener before requesting model list on startup', () => {
     renderAppConfigContext();
 
     expect(IpcBridge.on).toHaveBeenCalledWith(
       ON_CHANNELS.FROM_BACKEND,
       expect.any(Function),
     );
-    expect(IpcBridge.send).not.toHaveBeenCalledWith(
-      SEND_CHANNELS.TO_BACKEND,
-      { type: 'list-models' },
-    );
-
-    act(() => {
-      getBackendHandler(ON_CHANNELS.IPC_STATUS)?.({ isConnected: true });
-    });
-
     expect(IpcBridge.send).toHaveBeenCalledWith(
       SEND_CHANNELS.TO_BACKEND,
       { type: 'list-models' },
@@ -70,9 +61,6 @@ describe('AppConfigProvider model + config wiring', () => {
 
   test('requests model list only once per renderer session', () => {
     const firstRender = renderAppConfigContext();
-    act(() => {
-      getBackendHandler(ON_CHANNELS.IPC_STATUS)?.({ isConnected: true });
-    });
     firstRender.unmount();
     renderAppConfigContext();
     act(() => {

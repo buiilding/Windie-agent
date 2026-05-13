@@ -93,6 +93,10 @@ One-time model-list request guard:
 
 - key: `__windie_models_list_requested__`
 - request sent only on main view (no `view` query param)
+- the main view sends the first `list-models` request on provider startup after
+  registering the backend event listener, so Electron main can queue the request
+  and open the hosted backend websocket even when the initial status snapshot is
+  disconnected
 
 ## Config Merge/Persistence Guards
 

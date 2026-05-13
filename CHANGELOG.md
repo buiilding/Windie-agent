@@ -6,6 +6,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Request the model catalog on renderer startup so packaged installs open the
+  hosted backend connection before the chat model controls render.
 - Keep the macOS reinstall helper as a local ignored script instead of tracking
   it in the public client repo.
 - Move the root banner image into `artifacts/` to keep the public client repo
