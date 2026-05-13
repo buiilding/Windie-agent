@@ -123,58 +123,13 @@ The client experience is split across:
 Use the pill as the default. Use the dashboard when you want the whole loop in
 front of you.
 
----
-
-## Architecture
-
-```text
-                 Hosted WindieOS APIs
-       model orchestration, OCR, vision,
-       embeddings, summaries, artifacts
-                         ^
-                         | HTTPS / WebSocket
-                         v
-+--------------------------------------------------+
-|                Electron Main                     |
-| windows, permissions, backend transport, sidecar |
-+------------------+-------------------------------+
-                   | IPC
-                   v
-+--------------------------+      JSON-RPC      +--------------------------+
-|     React Renderer       | <---------------> |     Python Sidecar       |
-| pill, dashboard, memory, |                   | screenshots, tools,      |
-| settings, transcripts    |                   | browser, files, shell    |
-+--------------------------+                   +-------------+------------+
-                                                            |
-                                                            v
-                                            the user's desktop, apps,
-                                            browser, filesystem, shell
-```
-
-This repository is the public client runtime. It contains the Electron frontend,
-React renderer, Python sidecar, tests, docs, packaging scripts, and public
-transport clients. It does not contain the private hosted backend
-implementation.
-
-Runtime boundaries matter:
-
-- Frontend and sidecar code do not import private backend packages.
-- Tools execute locally in the sidecar.
-- Hosted services own backend-side model, OCR, vision, embedding, and
-  orchestration work.
-- The client is responsible for the local experience and local execution.
-
----
-
 ## Quick Start
 
 ### Requirements
 
 - macOS, Windows, or Linux
 - Node.js 18+
-- Python 3.11 for source development
-- Git
-
+  
 ### Run From Source
 
 ```bash
@@ -214,69 +169,12 @@ By default, the client is designed to talk to the configured hosted WindieOS
 backend. Use `BACKEND_*` or `WINDIE_BACKEND_*` overrides only when pointing the
 client at another compatible backend.
 
----
-
-## Development
-
-From the repository root:
-
-```bash
-./scripts/test-sidecar
-./scripts/test
-```
-
-From `frontend/`:
-
-```bash
-npm run test
-npm run test:ci
-npm run lint
-npm run electron:dev
-```
-
-Use the environment launcher for Python commands:
-
-```bash
-./scripts/python-in-env <frontend|sidecar> <cmd...>
-```
-
-## Repository Map
-
-```text
-frontend/
-  src/main/              Electron main process, IPC, windows, permissions
-  src/renderer/          React chat pill, dashboard, memory, settings
-  src/main/python/       Python sidecar, tools, memory, browser adapters
-
-docs/
-  architecture/          Client architecture and runtime boundaries
-  getting-started/       Product overview
-  reference/             Packaging and runtime references
-
-tests/
-  frontend/              Jest and Electron bridge tests
-  sidecar/               Pytest suites for local execution
-```
-
-Start with:
+Related Docs:
 
 - [Product Overview](docs/getting-started/product_overview.md)
 - [Frontend Architecture](docs/architecture/frontend_architecture.md)
 - [Python Sidecar](docs/architecture/python_sidecar.md)
 - [Memory System](docs/architecture/memory_system.md)
-
-## Security And Privacy
-
-Windie touches real local surfaces, so the boundary is explicit:
-
-- Local tools execute in the Python sidecar on the user's machine.
-- Browser automation uses a dedicated Windie profile by default.
-- Hosted calls are used for backend-owned capabilities such as model
-  orchestration, embeddings, semantic summarization, OCR, vision, and
-  artifacts.
-- OS permissions are requested through onboarding and settings surfaces.
-- API keys and credentials must come from environment or user configuration,
-  not from committed files.
 
 ## License
 
