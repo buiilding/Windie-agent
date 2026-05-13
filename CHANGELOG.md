@@ -13,6 +13,8 @@ All notable public-client changes to WindieOS will be documented in this file.
   repo and adjusted for public-client boundaries.
 - Add OpenClaw-style README documentation links and a docs navigation table for
   the public client docs.
+- Replace README badges with Release, MIT License, Discord, and AGENTS links,
+  and switch the public frontend/sidecar license text to MIT.
 
 ### Added
 

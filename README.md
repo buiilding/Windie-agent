@@ -5,21 +5,10 @@
 # Windie Agent
 
 <p align="center">
-  <a href="docs/getting-started/docs_hub.md"><img src="https://img.shields.io/badge/Docs-public%20client-111827?style=for-the-badge" alt="Documentation"></a>
-  <a href="docs/architecture/frontend_architecture.md"><img src="https://img.shields.io/badge/Architecture-client%20runtime-2563EB?style=for-the-badge" alt="Client architecture"></a>
-  <a href="docs/architecture/memory_system.md"><img src="https://img.shields.io/badge/Memory-episodic%20%7C%20semantic%20%7C%20procedural-16A34A?style=for-the-badge" alt="Memory system"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-proprietary-6B7280?style=for-the-badge" alt="License"></a>
-</p>
-
-<p align="center">
-  <a href="docs/getting-started/docs_hub.md">Docs</a> ·
-  <a href="docs/getting-started/quick_start.md">Quick Start</a> ·
-  <a href="docs/getting-started/installation.md">Install</a> ·
-  <a href="docs/browser/browser_control.md">Browser-Use</a> ·
-  <a href="docs/frontend/README.md">Frontend</a> ·
-  <a href="docs/frontend/sidecar/README.md">Sidecar</a> ·
-  <a href="docs/operations/release.md">Release</a> ·
-  <a href="docs/development/contributing.md">Contributing</a>
+  <a href="https://github.com/buiilding/Windie-agent/releases"><img src="https://img.shields.io/badge/Release-GitHub-2563EB?style=for-the-badge" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge" alt="MIT License"></a>
+  <a href="https://discord.gg/windieos"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="AGENTS.md"><img src="https://img.shields.io/badge/Agents-AGENTS.md-111827?style=for-the-badge" alt="AGENTS.md"></a>
 </p>
 
 **Welcome to Windie.** Windie is a desktop agent for your real computer: a

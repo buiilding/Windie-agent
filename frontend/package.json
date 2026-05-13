@@ -3,6 +3,7 @@
   "private": false,
   "version": "0.6.23",
   "description": "WindieOS desktop client for the AI Operating System layer.",
+  "license": "MIT",
   "homepage": "https://api.windieos.com",
   "author": {
     "name": "WindieOS",
