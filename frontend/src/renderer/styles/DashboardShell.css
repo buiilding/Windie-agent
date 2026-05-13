@@ -880,6 +880,9 @@ body.cg-scroll-locked,
 .cg-modal.cg-modal-settings {
   width: min(768px, calc(100vw - 40px));
   height: min(600px, calc(100vh - 40px));
+  background:
+    var(--ui-shell-ambient),
+    var(--ui-shell-bg);
 }
 
 .cg-modal-body {

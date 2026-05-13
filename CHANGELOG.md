@@ -13,6 +13,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 - Switch remaining gray hover states across chat, sidebar, settings, memory,
   model cards, attachment controls, and scrollbars to WindieOS blue hover
   treatments.
+- Match the settings modal surface to the dashboard's near-black shell
+  background.
 - Request the model catalog on renderer startup so packaged installs open the
   hosted backend connection before the chat model controls render.
 - Keep the macOS reinstall helper as a local ignored script instead of tracking
