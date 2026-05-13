@@ -1126,13 +1126,26 @@
 .message-user .message-content {
   width: fit-content;
   max-width: 100%;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  color: #0f172a;
+  background: linear-gradient(180deg, var(--windie-blue) 0%, var(--windie-blue-hover) 100%);
+  border: 1px solid rgba(166, 216, 255, 0.42);
+  color: var(--ui-on-accent);
   border-radius: 20px;
   padding: 14px 18px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 14px 34px rgba(0, 122, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
   overflow-wrap: anywhere;
+}
+
+.message-user .message-content-markdown a {
+  color: var(--ui-on-accent);
+  text-decoration-color: rgba(255, 255, 255, 0.7);
+}
+
+.message-user .message-content-markdown code {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--ui-on-accent);
 }
 
 .user-message-editor {

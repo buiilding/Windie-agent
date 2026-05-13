@@ -15,6 +15,8 @@ All notable public-client changes to WindieOS will be documented in this file.
   treatments.
 - Match the settings modal surface to the dashboard's near-black shell
   background.
+- Make outgoing user chat bubbles use the WindieOS blue accent instead of a
+  neutral white surface.
 - Request the model catalog on renderer startup so packaged installs open the
   hosted backend connection before the chat model controls render.
 - Keep the macOS reinstall helper as a local ignored script instead of tracking
