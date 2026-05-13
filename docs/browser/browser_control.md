@@ -65,8 +65,10 @@ Parity check guarantees:
 
 **No manual setup required.** When you issue a browser request, WindieOS connect will:
 1. Attach to the WindieOS dedicated browser instance when its CDP endpoint is already available.
-2. Otherwise launch a dedicated instance with persistent WindieOS profile data.
-3. Leave the user's default browser process/profile untouched, even if it is currently active.
+2. Ensure the dedicated CDP endpoint has a real page target for Playwright
+   attachment, creating `about:blank` when Chrome is running without a tab.
+3. Otherwise launch a dedicated instance with persistent WindieOS profile data.
+4. Leave the user's default browser process/profile untouched, even if it is currently active.
 
 Connect via the tool:
 ```json

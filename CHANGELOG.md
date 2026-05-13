@@ -6,6 +6,9 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Ensure the Windie dedicated browser always has a page target before
+  Playwright attaches over CDP, fixing browser automation onboarding failures
+  when Chrome starts with an empty target list.
 - Replace the packaged app icon assets with the full rounded-square Windie icon
   across macOS, Windows, Linux, and runtime window/tray surfaces.
 - Align renderer theme, first-run onboarding, permission prompts, and primary

@@ -10,6 +10,7 @@ from unittest import mock
 import pytest
 
 from tools.browser.chrome_launcher import (
+    ensure_cdp_page_target,
     is_cdp_available,
     find_chrome_process,
     is_chrome_running_with_cdp,
@@ -66,6 +67,66 @@ class TestIsCdpAvailable:
             result = await is_cdp_available(DEFAULT_CDP_URL)
 
             assert result is False
+
+
+class TestEnsureCdpPageTarget:
+    """Test CDP page target repair."""
+
+    @staticmethod
+    def _mock_session(mock_session_class, *, get_context_manager=None, put_context_manager=None):
+        mock_session = mock.MagicMock()
+        if get_context_manager is not None:
+            mock_session.get = mock.MagicMock(return_value=get_context_manager)
+        if put_context_manager is not None:
+            mock_session.put = mock.MagicMock(return_value=put_context_manager)
+        mock_session_class.return_value.__aenter__ = mock.AsyncMock(return_value=mock_session)
+        mock_session_class.return_value.__aexit__ = mock.AsyncMock(return_value=False)
+        return mock_session
+
+    @pytest.mark.asyncio
+    async def test_existing_page_target(self):
+        mock_response = mock.AsyncMock()
+        mock_response.status = 200
+        mock_response.json.return_value = [{"type": "page", "url": "about:blank"}]
+        mock_get_cm = mock.AsyncMock()
+        mock_get_cm.__aenter__ = mock.AsyncMock(return_value=mock_response)
+        mock_get_cm.__aexit__ = mock.AsyncMock(return_value=False)
+
+        with mock.patch("tools.browser.chrome_launcher.aiohttp.ClientSession") as mock_session_class:
+            mock_session = self._mock_session(mock_session_class, get_context_manager=mock_get_cm)
+
+            result = await ensure_cdp_page_target(DEFAULT_CDP_URL)
+
+            assert result is True
+            mock_session.put.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_creates_page_target_when_list_is_empty(self):
+        mock_list_response = mock.AsyncMock()
+        mock_list_response.status = 200
+        mock_list_response.json.return_value = []
+        mock_get_cm = mock.AsyncMock()
+        mock_get_cm.__aenter__ = mock.AsyncMock(return_value=mock_list_response)
+        mock_get_cm.__aexit__ = mock.AsyncMock(return_value=False)
+
+        mock_new_response = mock.AsyncMock()
+        mock_new_response.status = 200
+        mock_new_response.json.return_value = {"type": "page", "url": "about:blank"}
+        mock_put_cm = mock.AsyncMock()
+        mock_put_cm.__aenter__ = mock.AsyncMock(return_value=mock_new_response)
+        mock_put_cm.__aexit__ = mock.AsyncMock(return_value=False)
+
+        with mock.patch("tools.browser.chrome_launcher.aiohttp.ClientSession") as mock_session_class:
+            mock_session = self._mock_session(
+                mock_session_class,
+                get_context_manager=mock_get_cm,
+                put_context_manager=mock_put_cm,
+            )
+
+            result = await ensure_cdp_page_target(DEFAULT_CDP_URL)
+
+            assert result is True
+            mock_session.put.assert_called_once()
 
 
 class TestFindChromeProcess:
@@ -190,7 +251,15 @@ class TestLaunchChromeWithCdp:
     @mock.patch("tools.browser.chrome_launcher.get_chrome_user_data_dir")
     @mock.patch("subprocess.Popen")
     @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
-    async def test_launch_success(self, mock_available, mock_popen, mock_user_data_dir, mock_find):
+    @mock.patch("tools.browser.chrome_launcher.ensure_cdp_page_target")
+    async def test_launch_success(
+        self,
+        mock_ensure_target,
+        mock_available,
+        mock_popen,
+        mock_user_data_dir,
+        mock_find,
+    ):
         """Test successful Chrome launch."""
         mock_find.return_value = mock.Mock(path="/usr/bin/chrome")
         mock_user_data_dir.return_value = Path("/tmp/test-google-chrome-cdp")
@@ -198,6 +267,7 @@ class TestLaunchChromeWithCdp:
         mock_process.poll.return_value = None
         mock_popen.return_value = mock_process
         mock_available.return_value = True
+        mock_ensure_target.return_value = True
         
         process, cdp_url = await launch_chrome_with_cdp()
         
@@ -207,6 +277,8 @@ class TestLaunchChromeWithCdp:
         launch_args = mock_popen.call_args.args[0]
         assert "--user-data-dir=/tmp/test-google-chrome-cdp" in launch_args
         assert "--profile-directory=Default" in launch_args
+        assert "--new-window" in launch_args
+        assert "about:blank" in launch_args
         assert "--no-first-run" not in launch_args
     
     @pytest.mark.asyncio
@@ -277,16 +349,32 @@ class TestKillExistingChrome:
 
 class TestEnsureChromeWithCdp:
     """Test ensure_chrome_with_cdp function."""
-    
+
     @pytest.mark.asyncio
     @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
-    async def test_already_available(self, mock_available):
+    @mock.patch("tools.browser.chrome_launcher.ensure_cdp_page_target")
+    async def test_already_available(self, mock_ensure_target, mock_available):
         """Test when CDP is already available."""
         mock_available.return_value = True
+        mock_ensure_target.return_value = True
         
         result = await ensure_chrome_with_cdp()
         
         assert result == DEFAULT_CDP_URL
+        mock_ensure_target.assert_awaited_once_with(DEFAULT_CDP_URL)
+
+    @pytest.mark.asyncio
+    @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
+    @mock.patch("tools.browser.chrome_launcher.ensure_cdp_page_target")
+    async def test_available_without_page_target_raises(self, mock_ensure_target, mock_available):
+        """Test when existing CDP cannot be repaired for Playwright attach."""
+        mock_available.return_value = True
+        mock_ensure_target.return_value = False
+
+        with pytest.raises(Exception) as exc_info:
+            await ensure_chrome_with_cdp()
+
+        assert "no page target" in str(exc_info.value)
     
     @pytest.mark.asyncio
     @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
@@ -323,22 +411,27 @@ class TestChromeLauncher:
     
     @pytest.mark.asyncio
     @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
-    async def test_use_existing(self, mock_available):
+    @mock.patch("tools.browser.chrome_launcher.ensure_cdp_page_target")
+    async def test_use_existing(self, mock_ensure_target, mock_available):
         """Test using existing Chrome."""
         mock_available.return_value = True
+        mock_ensure_target.return_value = True
         
         launcher = ChromeLauncher()
         result = await launcher.launch()
         
         assert result == DEFAULT_CDP_URL
         assert not launcher._launched_by_us
+        mock_ensure_target.assert_awaited_once_with(DEFAULT_CDP_URL)
     
     @pytest.mark.asyncio
     @mock.patch("tools.browser.chrome_launcher.is_cdp_available")
+    @mock.patch("tools.browser.chrome_launcher.ensure_cdp_page_target")
     @mock.patch("tools.browser.chrome_launcher.launch_chrome_with_cdp")
-    async def test_launch_new(self, mock_launch, mock_available):
+    async def test_launch_new(self, mock_launch, mock_ensure_target, mock_available):
         """Test launching new Chrome."""
         mock_available.return_value = False
+        mock_ensure_target.return_value = True
         mock_process = mock.Mock()
         mock_launch.return_value = (mock_process, "http://127.0.0.1:9222")
         

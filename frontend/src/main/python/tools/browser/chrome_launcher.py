@@ -15,7 +15,7 @@ import subprocess
 import time
 from pathlib import Path
 from typing import List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 import aiohttp
 
@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 DEFAULT_CDP_PORT = 9333
 CHROME_STARTUP_TIMEOUT = 10  # seconds
 CHROME_CHECK_INTERVAL = 0.5  # seconds
+DEFAULT_INITIAL_PAGE_URL = "about:blank"
 
 
 def _resolve_default_cdp_port() -> int:
@@ -85,6 +86,60 @@ async def is_cdp_available(cdp_url: str = DEFAULT_WINDIE_CDP_URL, timeout: float
             ) as response:
                 return response.status == 200
     except Exception:
+        return False
+
+
+async def list_cdp_targets(
+    cdp_url: str = DEFAULT_WINDIE_CDP_URL,
+    timeout: float = 2.0,
+) -> List[dict]:
+    """Return Chrome CDP targets exposed by the Windie browser endpoint."""
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                f"{cdp_url}/json/list",
+                timeout=aiohttp.ClientTimeout(total=timeout),
+            ) as response:
+                if response.status != 200:
+                    return []
+                targets = await response.json()
+                return targets if isinstance(targets, list) else []
+    except Exception:
+        return []
+
+
+async def ensure_cdp_page_target(
+    cdp_url: str = DEFAULT_WINDIE_CDP_URL,
+    timeout: float = 2.0,
+) -> bool:
+    """
+    Ensure the CDP endpoint has at least one page target.
+
+    Chrome can expose the browser-level CDP endpoint before any page target is
+    available. Playwright's CDP attach path expects a default page context and
+    can fail with Browser.setDownloadBehavior when the target list is empty.
+    """
+    targets = await list_cdp_targets(cdp_url, timeout=timeout)
+    if any(target.get("type") == "page" for target in targets):
+        return True
+
+    try:
+        initial_url = quote(DEFAULT_INITIAL_PAGE_URL, safe=":/")
+        async with aiohttp.ClientSession() as session:
+            async with session.put(
+                f"{cdp_url}/json/new?{initial_url}",
+                timeout=aiohttp.ClientTimeout(total=timeout),
+            ) as response:
+                if response.status != 200:
+                    logger.warning(
+                        "Failed to create Windie browser page target: HTTP %s",
+                        response.status,
+                    )
+                    return False
+                target = await response.json()
+                return target.get("type") == "page"
+    except Exception as exc:
+        logger.warning("Failed to create Windie browser page target: %s", exc)
         return False
 
 
@@ -219,6 +274,9 @@ async def launch_chrome_with_cdp(
 
     if extra_args:
         args.extend(extra_args)
+
+    # Keep a real page target present for Playwright's CDP attach path.
+    args.extend(["--new-window", DEFAULT_INITIAL_PAGE_URL])
     
     # Launch Chrome
     try:
@@ -245,7 +303,10 @@ async def launch_chrome_with_cdp(
     # Wait for CDP to be available
     start_time = time.time()
     while time.time() - start_time < CHROME_STARTUP_TIMEOUT:
-        if await is_cdp_available(cdp_url, timeout=1.0):
+        if await is_cdp_available(cdp_url, timeout=1.0) and await ensure_cdp_page_target(
+            cdp_url,
+            timeout=1.0,
+        ):
             logger.info(f"Chrome launched successfully with CDP at {cdp_url}")
             return process, cdp_url
         await asyncio.sleep(CHROME_CHECK_INTERVAL)
@@ -327,6 +388,11 @@ async def ensure_chrome_with_cdp(
     
     # Case 1: WindieOS CDP endpoint already available.
     if await is_cdp_available(cdp_url):
+        if not await ensure_cdp_page_target(cdp_url):
+            raise ChromeLauncherError(
+                "WindieOS browser CDP endpoint is available but has no page target "
+                "and could not create one for Playwright attach."
+            )
         logger.info("WindieOS browser with CDP already available at %s", cdp_url)
         return cdp_url
 
@@ -386,6 +452,11 @@ class ChromeLauncher:
         """
         # Check if already available
         if await is_cdp_available(self.cdp_url):
+            if not await ensure_cdp_page_target(self.cdp_url):
+                raise ChromeLauncherError(
+                    "Chrome CDP endpoint is available but has no page target "
+                    "and could not create one for Playwright attach."
+                )
             logger.info(f"Using existing Chrome with CDP at {self.cdp_url}")
             return self.cdp_url
         
