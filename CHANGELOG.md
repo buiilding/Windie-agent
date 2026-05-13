@@ -6,6 +6,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Replace the packaged app icon assets with the full rounded-square Windie icon
+  across macOS, Windows, Linux, and runtime window/tray surfaces.
 - Align renderer theme, first-run onboarding, permission prompts, and primary
   settings/chat controls with the public WindieOS landing-page black and
   electric-blue palette, including visible progress, active, selected, granted,
