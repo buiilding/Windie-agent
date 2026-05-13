@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  public-repo-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Ensure private backend source is absent
+        run: |
+          set -euo pipefail
+          forbidden=(
+            "backend"
+            "tests/backend"
+            "docs/backend"
+            "scripts/test-backend"
+            "scripts/run-backend"
+          )
+          for path in "${forbidden[@]}"; do
+            if [ -e "$path" ]; then
+              echo "Forbidden private/backend path present: $path" >&2
+              exit 1
+            fi
+          done
+
+  sidecar-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install sidecar dependencies
+        run: pip install -r frontend/src/main/python/requirements.txt
+      - name: Run sidecar tests
+        env:
+          PYTHONPATH: .
+        run: ./scripts/test-sidecar
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend dependencies
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+        run: npm ci
+        working-directory: frontend
+      - name: Run frontend tests
+        run: npm run test:ci
+        working-directory: frontend

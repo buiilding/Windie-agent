@@ -1,0 +1,97 @@
+{
+  "manifest_version": "1.3.1",
+  "generated_at": "2026-04-12",
+  "permissions": [
+    {
+      "permission_id": "screen_capture",
+      "label": "Screen capture",
+      "description": "Allow WindieOS to capture the current screen for screenshot context and visual grounding.",
+      "access_kind": "os_permission",
+      "grant_action_label": "Grant",
+      "risk_level": "high",
+      "required_now": true,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "os_media_status_screen_or_runtime_probe",
+      "unlocks_tool_groups": ["computer_control", "screenshot"]
+    },
+    {
+      "permission_id": "input_control_accessibility",
+      "label": "Input control",
+      "description": "Allow WindieOS to automate mouse, keyboard, and scroll interactions.",
+      "access_kind": "os_permission",
+      "grant_action_label": "Grant",
+      "risk_level": "high",
+      "required_now": true,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "os_accessibility_or_runtime_probe",
+      "unlocks_tool_groups": ["computer_control"]
+    },
+    {
+      "permission_id": "system_events_automation",
+      "label": "System Events automation",
+      "description": "Allow WindieOS to control macOS System Events so window focusing and other UI automation steps do not prompt mid-task.",
+      "access_kind": "os_permission",
+      "grant_action_label": "Grant",
+      "risk_level": "high",
+      "required_now": true,
+      "required_for_planned_system_access": true,
+      "os_scope": "macos",
+      "validation_probe": "macos_system_events_automation_probe",
+      "unlocks_tool_groups": ["computer_control"]
+    },
+    {
+      "permission_id": "microphone",
+      "label": "Microphone",
+      "description": "Allow voice mode and wakeword audio capture.",
+      "access_kind": "os_permission",
+      "grant_action_label": "Grant",
+      "risk_level": "medium",
+      "required_now": false,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "os_media_status_microphone",
+      "unlocks_tool_groups": ["voice"]
+    },
+    {
+      "permission_id": "filesystem_workspace_access",
+      "label": "Workspace file access",
+      "description": "Allow file read/replace operations in user-selected workspace locations.",
+      "access_kind": "resource_access",
+      "grant_action_label": "Choose folder",
+      "risk_level": "high",
+      "required_now": true,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "runtime_filesystem_capability_probe",
+      "unlocks_tool_groups": ["filesystem"]
+    },
+    {
+      "permission_id": "shell_execution",
+      "label": "Shell execution",
+      "description": "Verify local shell runtime availability. Administrator authentication still happens when privileged commands run.",
+      "access_kind": "runtime_check",
+      "grant_action_label": "Verify",
+      "risk_level": "high",
+      "required_now": false,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "runtime_shell_capability_probe",
+      "unlocks_tool_groups": ["system"]
+    },
+    {
+      "permission_id": "browser_automation",
+      "label": "Browser automation",
+      "description": "Open the WindieOS browser so you can sign in with the profile WindieOS should use for browsing, navigation, and web tasks.",
+      "access_kind": "app_capability",
+      "grant_action_label": "Open browser",
+      "risk_level": "high",
+      "required_now": false,
+      "required_for_planned_system_access": true,
+      "os_scope": "all",
+      "validation_probe": "runtime_browser_capability_probe",
+      "unlocks_tool_groups": ["browser"]
+    }
+  ]
+}

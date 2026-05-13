@@ -1,0 +1,22 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/main/ipc.cjs",
+    "src/preload.js",
+    "src/landing/main.jsx",
+    "../tests/frontend/**/*.{js,jsx,ts,tsx,cjs,mjs}"
+  ],
+  "project": [
+    "src/**/*.{js,jsx,ts,tsx,cjs,mjs}",
+    "../tests/frontend/**/*.{js,jsx,ts,tsx,cjs,mjs}"
+  ],
+  "ignoreDependencies": [
+    "@testing-library/react",
+    "eslint-plugin-deprecation",
+    "eslint-plugin-react-compiler",
+    "json-schema-to-typescript"
+  ],
+  "ignore": [
+    "src/types/schema.ts"
+  ]
+}

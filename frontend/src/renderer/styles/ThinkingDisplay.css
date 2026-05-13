@@ -1,0 +1,43 @@
+.thinking-display-stream {
+  position: relative;
+  width: min(92%, 820px);
+  margin: 0 auto 10px auto;
+  padding: 8px 10px 6px;
+  max-height: 138px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: transparent;
+}
+
+.thinking-display-stream::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.24) 0,
+    rgba(11, 11, 11, 0.55) 1px,
+    rgba(11, 11, 11, 0) 100%
+  );
+  transition: opacity 140ms ease;
+}
+
+.thinking-display-stream.has-overflow-above::before {
+  opacity: 1;
+}
+
+.thinking-display-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.58;
+  color: rgba(255, 255, 255, 0.6);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+}
