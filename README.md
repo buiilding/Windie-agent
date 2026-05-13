@@ -8,7 +8,7 @@
   <a href="https://github.com/buiilding/Windie-agent/releases"><img src="https://img.shields.io/badge/Release-GitHub-2563EB?style=for-the-badge" alt="Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge" alt="MIT License"></a>
   <a href="https://discord.gg/windieos"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="AGENTS.md"><img src="https://img.shields.io/badge/Agents-AGENTS.md-111827?style=for-the-badge" alt="AGENTS.md"></a>
+  <a href="AGENTS.md"><img src="https://img.shields.io/badge/Agents-AGENTS.md-FFFFFF?style=for-the-badge" alt="AGENTS.md"></a>
 </p>
 
 **Welcome to Windie.** Windie is a desktop agent for your real computer: a
