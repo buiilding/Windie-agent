@@ -20,7 +20,9 @@ No setup flow, no extension pinned to one tab, and no model lock-in. Download
 Windie, talk to the pill, and let the agent use computer-use, browser-use,
 terminal, files, and memory from the desktop you already work in.
 
-[**Download here**](https://windieos.com)
+Download Windie on its official website: [WindieOS](https://windieos.com)
+
+Latest releases: [Releases](https://github.com/buiilding/Windie-agent/releases)
 
 ---
 
@@ -54,7 +56,9 @@ waits for you to redirect it.
 
 ### Download
 
-[**Download here**](https://windieos.com)
+Download Windie on its official website: [WindieOS](https://windieos.com)
+
+Latest releases: [Releases](https://github.com/buiilding/Windie-agent/releases)
 
 Windie is designed for macOS, Windows, and Linux.
 
