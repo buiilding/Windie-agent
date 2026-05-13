@@ -6,8 +6,9 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
-- Fix Windows sidecar runtime archiving so Git Bash tar treats drive-letter
-  paths as local files during packaged desktop builds.
+- Fix packaged sidecar runtime archiving so Git Bash tar treats Windows
+  drive-letter paths as local files while macOS Bash can still archive without
+  optional tar flags.
 - Rewrite the README around the Windie Agent product pitch, banner, UI states,
   model-agnostic computer-use, dedicated browser profile, and memory system.
 - Expand public docs with frontend, sidecar, browser, getting-started,

@@ -547,6 +547,10 @@ tar_args=()
 if tar --help 2>/dev/null | grep -q -- "--force-local"; then
   tar_args+=(--force-local)
 fi
-tar "${tar_args[@]}" -C "${FRONTEND_DIR}" -czf "${RUNTIME_ARCHIVE}" "python-runtime"
+if (( ${#tar_args[@]} > 0 )); then
+  tar "${tar_args[@]}" -C "${FRONTEND_DIR}" -czf "${RUNTIME_ARCHIVE}" "python-runtime"
+else
+  tar -C "${FRONTEND_DIR}" -czf "${RUNTIME_ARCHIVE}" "python-runtime"
+fi
 
 echo "[build-sidecar-runtime] wrote ${RUNTIME_ARCHIVE}"
