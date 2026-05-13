@@ -6,6 +6,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Restore setup and permission onboarding progress labels to white instead of
+  Windie blue.
 - Ensure the Windie dedicated browser always has a page target before
   Playwright attaches over CDP, fixing browser automation onboarding failures
   when Chrome starts with an empty target list.
