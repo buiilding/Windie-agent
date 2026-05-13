@@ -189,10 +189,10 @@
 }
 
 .clone-settings-primary-button {
-  border: 1px solid color-mix(in srgb, white 68%, var(--ui-border-soft) 32%);
+  border: 1px solid var(--windie-blue);
   border-radius: 999px;
-  background: color-mix(in srgb, white 88%, var(--ui-panel-bg) 12%);
-  color: #0f1115;
+  background: var(--windie-blue);
+  color: #ffffff;
   cursor: pointer;
   flex-shrink: 0;
   font-size: 12px;
@@ -200,10 +200,13 @@
   letter-spacing: 0.01em;
   min-width: 156px;
   padding: 7px 14px;
-  transition: transform 140ms ease, opacity 140ms ease;
+  box-shadow: 0 0 18px -10px var(--windie-blue-glow);
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease, opacity 140ms ease;
 }
 
 .clone-settings-primary-button:hover:not(:disabled) {
+  background: var(--windie-blue-hover);
+  border-color: var(--windie-blue-hover);
   transform: translateY(-1px);
 }
 

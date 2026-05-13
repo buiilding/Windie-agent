@@ -24,10 +24,14 @@ Typography and base tokens:
 - imports `Manrope` (UI) and `JetBrains Mono` (mono) from Google Fonts
 - exposes shared CSS variables for:
   - typography (`--font-ui`, `--font-mono`)
+  - WindieOS brand colors (`--windie-blue`, `--windie-blue-hover`, `--windie-pale`, `--windie-black`, `--windie-gray`, `--windie-gray-light`)
   - surfaces/backgrounds (`--bg-base`, `--surface-*`)
   - text hierarchy (`--text-primary`, `--text-muted`, `--text-soft`)
   - semantic accents (`--accent`, `--warning`, `--danger`, `--success`)
   - borders, shadows, radii
+- active app chrome maps primary actions, selected states, focus rings, and
+  subtle glows to the public landing-page electric-blue palette while keeping
+  destructive/error/success states semantically colored
 
 Global resets:
 

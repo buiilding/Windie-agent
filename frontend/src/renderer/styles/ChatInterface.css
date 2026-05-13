@@ -6,10 +6,12 @@
   --chat-utility-surface-bg-active: rgba(255, 255, 255, 0.08);
   --chat-utility-surface-bg-muted: rgba(255, 255, 255, 0.018);
   --chat-utility-surface-border: rgba(255, 255, 255, 0.1);
-  --chat-utility-surface-border-strong: rgba(255, 255, 255, 0.18);
+  --chat-utility-surface-border-strong: rgba(0, 122, 255, 0.42);
   --chat-utility-surface-border-subtle: rgba(255, 255, 255, 0.06);
-  --chat-utility-surface-focus: rgba(255, 255, 255, 0.16);
-  --chat-utility-surface-shadow: 0 18px 46px rgba(0, 0, 0, 0.34);
+  --chat-utility-surface-focus: rgba(0, 122, 255, 0.32);
+  --chat-utility-surface-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.34),
+    0 0 24px -16px rgba(0, 122, 255, 0.46);
   --chat-utility-text-primary: rgba(248, 250, 252, 0.94);
   --chat-utility-text-secondary: rgba(226, 232, 240, 0.7);
   --chat-utility-text-muted: rgba(226, 232, 240, 0.52);
@@ -87,6 +89,14 @@
 
 .chat-provider-selector:hover {
   background: var(--ui-hover-bg);
+}
+
+.chat-provider-selector:focus-visible,
+.chat-model-selector:focus-visible,
+.chat-reasoning-mode-selector:focus-visible {
+  outline: 2px solid rgba(0, 122, 255, 0.72);
+  outline-offset: 2px;
+  background: rgba(0, 122, 255, 0.08);
 }
 
 .chat-provider-selector svg {
@@ -207,6 +217,7 @@
 
 .chat-model-menu-item:hover {
   background: var(--ui-hover-strong-bg);
+  color: var(--ui-text-primary);
 }
 
 .chat-provider-menu-item {
@@ -225,6 +236,7 @@
 
 .chat-provider-menu-item:hover {
   background: var(--ui-hover-strong-bg);
+  color: var(--ui-text-primary);
 }
 
 .chat-reasoning-mode-menu-item {
@@ -2036,7 +2048,7 @@
 .transparency-copy-btn {
   padding: 6px 10px;
   background: var(--accent);
-  color: #062114;
+  color: #ffffff;
   border: none;
   border-radius: 999px;
   font-size: 10px;
