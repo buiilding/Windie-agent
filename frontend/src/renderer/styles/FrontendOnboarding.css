@@ -271,7 +271,8 @@
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--windie-pale);
+  color: var(--windie-blue);
+  text-shadow: 0 0 18px var(--windie-blue-glow);
 }
 
 .frontend-onboarding-permission-stage-summary {
@@ -398,6 +399,17 @@
 .frontend-onboarding-permission-reason.status-granted {
   color: var(--windie-pale);
   text-shadow: 0 0 18px rgba(0, 122, 255, 0.18);
+}
+
+.frontend-onboarding-card-permissions .frontend-onboarding-permission-reason.status-granted,
+.frontend-onboarding-card-permissions .frontend-onboarding-permission-granted {
+  color: var(--windie-pale);
+}
+
+.frontend-onboarding-card-permissions .frontend-onboarding-permission-granted-icon {
+  background: var(--windie-blue);
+  border-color: rgba(166, 216, 255, 0.72);
+  color: #ffffff;
 }
 
 .frontend-onboarding-permission-row > .frontend-onboarding-button {
