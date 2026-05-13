@@ -5,10 +5,21 @@
 # Windie Agent
 
 <p align="center">
-  <a href="docs/getting-started/product_overview.md"><img src="https://img.shields.io/badge/Docs-product%20overview-111827?style=for-the-badge" alt="Product overview"></a>
+  <a href="docs/getting-started/docs_hub.md"><img src="https://img.shields.io/badge/Docs-public%20client-111827?style=for-the-badge" alt="Documentation"></a>
   <a href="docs/architecture/frontend_architecture.md"><img src="https://img.shields.io/badge/Architecture-client%20runtime-2563EB?style=for-the-badge" alt="Client architecture"></a>
   <a href="docs/architecture/memory_system.md"><img src="https://img.shields.io/badge/Memory-episodic%20%7C%20semantic%20%7C%20procedural-16A34A?style=for-the-badge" alt="Memory system"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-proprietary-6B7280?style=for-the-badge" alt="License"></a>
+</p>
+
+<p align="center">
+  <a href="docs/getting-started/docs_hub.md">Docs</a> ·
+  <a href="docs/getting-started/quick_start.md">Quick Start</a> ·
+  <a href="docs/getting-started/installation.md">Install</a> ·
+  <a href="docs/browser/browser_control.md">Browser-Use</a> ·
+  <a href="docs/frontend/README.md">Frontend</a> ·
+  <a href="docs/frontend/sidecar/README.md">Sidecar</a> ·
+  <a href="docs/operations/release.md">Release</a> ·
+  <a href="docs/development/contributing.md">Contributing</a>
 </p>
 
 **Welcome to Windie.** Windie is a desktop agent for your real computer: a
@@ -169,12 +180,30 @@ By default, the client is designed to talk to the configured hosted WindieOS
 backend. Use `BACKEND_*` or `WINDIE_BACKEND_*` overrides only when pointing the
 client at another compatible backend.
 
-Related Docs:
+## Docs
 
-- [Product Overview](docs/getting-started/product_overview.md)
-- [Frontend Architecture](docs/architecture/frontend_architecture.md)
-- [Python Sidecar](docs/architecture/python_sidecar.md)
-- [Memory System](docs/architecture/memory_system.md)
+Start with the [Documentation Hub](docs/getting-started/docs_hub.md), or jump
+directly into a topic:
+
+| Section | What it covers |
+| --- | --- |
+| [Quick Start](docs/getting-started/quick_start.md) | Install dependencies and run the public client from source. |
+| [Installation](docs/getting-started/installation.md) | Source install, endpoint overrides, sidecar Python resolution, and verification. |
+| [User Guide](docs/getting-started/user_guide.md) | Chat pill, dashboard, browser-use, memory, and stop/redirect behavior. |
+| [Frontend Architecture](docs/architecture/frontend_architecture.md) | Electron main, React renderer, preload boundary, and sidecar ownership. |
+| [Communication Flow](docs/architecture/communication_flow.md) | IPC, JSON-RPC, WebSocket, HTTP, query, memory, and tool event paths. |
+| [Tool System](docs/architecture/tool_system.md) | Hosted orchestration boundary, sidecar tool execution, and renderer visibility. |
+| [Browser-Use](docs/browser/browser_control.md) | Windie browser profile, browser automation actions, and runtime behavior. |
+| [Frontend Docs](docs/frontend/README.md) | Deep frontend maps across main, renderer, preload, contracts, runtime, and inventory. |
+| [Sidecar Docs](docs/frontend/sidecar/README.md) | Python sidecar runtime, memory, browser automation, services, and tools. |
+| [Operations](docs/operations/release.md) | Configuration, packaging, release, security, performance, and sidecar runtime packaging. |
+| [Development](docs/development/contributing.md) | Contribution workflow, environment setup, tests, and tool development. |
+| [API Reference](docs/reference/api_reference.md) | Public hosted API transport surfaces consumed by the client and sidecar. |
+
+The public client docs intentionally describe the Electron frontend, Python
+sidecar, browser-use runtime, local memory, packaging, and hosted transport
+contracts. Private hosted backend implementation docs are not part of this
+repository.
 
 ## License
 

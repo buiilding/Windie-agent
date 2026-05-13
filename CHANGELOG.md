@@ -11,6 +11,8 @@ All notable public-client changes to WindieOS will be documented in this file.
 - Expand public docs with frontend, sidecar, browser, getting-started,
   development, reference, and client operations coverage copied from the main
   repo and adjusted for public-client boundaries.
+- Add OpenClaw-style README documentation links and a docs navigation table for
+  the public client docs.
 
 ### Added
 
