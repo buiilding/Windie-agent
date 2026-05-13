@@ -11,125 +11,53 @@
   <a href="AGENTS.md"><img src="https://img.shields.io/badge/Agents-AGENTS.md-FFFFFF?style=for-the-badge" alt="AGENTS.md"></a>
 </p>
 
-**Welcome to Windie.** Windie is a desktop agent for your real computer: a
-local Electron experience with a Python sidecar, hosted model orchestration,
-computer-use, browser-use, memory, terminal access, and UI surfaces that stay
-with you while the agent works.
+**The desktop layer for personal AI agents.** Windie gives agents a visible,
+always-present surface on your computer: a chat pill that follows you across the
+operating system, watches the current screen when you ask for help, and shows
+what the agent is doing in real time.
 
-Windie belongs in the same conversation as Hermes, OpenClaw, Codex, Claude
-Code, and the other serious agent systems. Like Codex, it has computer-use
-built in. Unlike vendor-specific computer tools, Windie's local computer-use
-contract is model-agnostic: any supported model can drive the same screenshot
-loop, tool calls, and desktop actions.
+No setup flow, no extension pinned to one tab, and no model lock-in. Download
+Windie, talk to the pill, and let the agent use computer-use, browser-use,
+terminal, files, and memory from the desktop you already work in.
 
-The goal is simple: ask for something in natural language, let Windie use the
-screen you are already looking at, and keep the work visible enough that you can
-trust, interrupt, or redirect it.
+[**Download here**](https://windieos.com)
 
 ---
 
-## What Makes Windie Different
+## Why Windie
 
 <table>
-<tr><td><b>Computer-use built in</b></td><td>Windie works through a sequential screenshot loop: observe the desktop, reason over the image and state, act with local tools, observe again, and continue.</td></tr>
-<tr><td><b>Works with any supported model</b></td><td>The computer-use tools are exposed through Windie's own tool contract, so they are not limited to OpenAI-native computer-use models.</td></tr>
-<tr><td><b>Human-inspired memory</b></td><td>Windie's memory direction is episodic, semantic, and procedural: what happened, what should be remembered, and how repeatable work should be done next time.</td></tr>
-<tr><td><b>Dedicated browser-use profile</b></td><td>Windie uses a WindieOS-owned persistent browser profile instead of attaching an extension to your normal Chrome profile, so you can keep working in your own browser.</td></tr>
-<tr><td><b>Two-state desktop UI</b></td><td>A minimal always-present chat pill for fast goals, plus a fullscreen dashboard for tool logs, transcripts, memory, settings, and deeper inspection.</td></tr>
+<tr><td><b>No setup desktop agent</b></td><td>Windie is built for macOS, Windows, and Linux. Download the app, open it, and start talking to your agent from the desktop.</td></tr>
+<tr><td><b>An operating-system layer</b></td><td>The floating chat pill stays with you while the agent works, so you can see its reactions, tool calls, and progress instead of guessing what the model is doing.</td></tr>
+<tr><td><b>Computer-use for any model provider</b></td><td>Windie's computer-use tools run through its own local tool contract, so they are not limited to one vendor's native computer-use model.</td></tr>
+<tr><td><b>Hands-free voice</b></td><td>Say "Hey Jarvis", talk into the mic, and Windie transcribes your speech into the query that starts the agent loop.</td></tr>
+<tr><td><b>Dedicated browser-use profile</b></td><td>Windie uses its own persistent Chrome profile instead of attaching an extension to one of your normal browser tabs.</td></tr>
 </table>
 
 ---
 
-## The Windie Loop
-
-```text
-You describe a goal.
-Windie captures the current screen.
-The model decides what to do next.
-The sidecar executes local tools.
-Windie shows progress in the pill or dashboard.
-The loop repeats until the task is done or you stop it.
-```
-
-Computer-use is intentionally screenshot-first. Windie does not need to own an
-accessibility tree or a single model vendor's desktop API to act. It sees the
-screen, clicks, types, scrolls, runs commands, reads files, drives its browser,
-and checks the result before taking the next step.
-
-## The Windie Vibe
-
-Windie has two UI states.
+## Desktop Experience
 
 **The first state is the minimal chat pill.** It floats on your screen, stays
-out of the way, and automatically takes a screenshot of your screen when you
-send a message. This is the state I recommend living in most of the time.
+out of the way, and can automatically attach the current screen when you send a
+message. This is the state you should live in most of the time.
 
 **The second state is the fullscreen dashboard.** It shows the longer
 conversation, live tool logs, memory surfaces, settings, and everything else
 you need when you want to inspect the agent loop closely.
 
-The product is designed to feel present without taking over the computer. Start
-from the pill, expand into the dashboard when you want more visibility, and
-return to the pill when you want the agent out of the way. If you close the
-pill, Windie opens the dashboard so the second state is always one step away
-instead of losing the running context.
-
----
-
-## Core Systems
-
-### Computer-Use
-
-Windie can use your machine through local sidecar tools:
-
-- screenshots and screen-state capture
-- mouse movement, clicking, dragging, and scrolling
-- keyboard input
-- shell commands and long-running processes
-- filesystem reads, writes, and searches
-- browser-use actions through the Windie browser runtime
-
-The hosted backend owns model orchestration and model-facing tool schemas. The
-local sidecar owns execution on the user's computer.
-
-### Memory
-
-Windie's memory system is inspired by how people remember:
-
-- **Episodic memory**: records of conversations, events, and what happened.
-- **Semantic memory**: distilled facts, preferences, and durable context.
-- **Procedural memory**: repeatable routines, workflows, and learned ways of
-  doing tasks.
-
-This is one of Windie's core bets: agents should not only store chat logs. They
-should develop useful continuity across sessions.
-
-### Browser-Use
-
-Windie does not attach to your everyday Chrome profile by default.
-
-Instead, it uses a WindieOS-owned persistent browser profile. The agent keeps
-its own cookies, sessions, and automation context while your personal browser
-stays separate and usable.
-
-### Desktop UI
-
-The client experience is split across:
-
-- **Minimal chat pill** for fast prompts and automatic screenshot context.
-- **Fullscreen dashboard** for tool traces, memory, logs, settings, and longer
-  agent runs.
-
-Use the pill as the default. Use the dashboard when you want the whole loop in
-front of you.
+Windie is designed to feel present without taking over the computer. It gives
+the agent a place to react while it clicks, types, browses, runs commands, or
+waits for you to redirect it.
 
 ## Quick Start
 
-### Requirements
+### Download
 
-- macOS, Windows, or Linux
-- Node.js 18+
-  
+[**Download here**](https://windieos.com)
+
+Windie is designed for macOS, Windows, and Linux.
+
 ### Run From Source
 
 ```bash

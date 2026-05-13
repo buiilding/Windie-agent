@@ -15,6 +15,9 @@ All notable public-client changes to WindieOS will be documented in this file.
   the public client docs.
 - Replace README badges with Release, MIT License, Discord, and AGENTS links,
   and switch the public frontend/sidecar license text to MIT.
+- Reframe the README around Windie as the desktop layer for personal AI agents,
+  no-setup downloads, visible OS-level agent reactions, model-agnostic
+  computer-use, hands-free voice, and dedicated browser-use profile.
 
 ### Added
 
