@@ -39,6 +39,12 @@ When adding or changing a sidecar tool:
 7. Update sidecar docs and focused tests in the same change.
 8. Confirm renderer/tool-output formatting still handles the result shape.
 
+Reusable extension tools can put model-facing and executable schema JSON under
+`extensions/<id>/tools/` and reference those files from
+`extensions/<id>/extension.json`. Electron main loads those schema files into
+`client_tool_manifest`; the sidecar implementation still lives in the normal
+sidecar tool registry.
+
 ## Prompt Layers
 
 Workspace `AGENTS.md` files and custom instructions are sent as
@@ -61,7 +67,8 @@ node scripts/mock-backend.cjs
 
 Then point the app at `ws://127.0.0.1:8765/ws` using the normal backend endpoint
 environment/config path. The mock accepts handshakes, client manifests, prompt
-layers, and basic query streaming without private backend access.
+layers, emits a fake tool call, accepts the tool result, and completes the turn
+without private backend access.
 
 ## Tool Registry
 

@@ -12,7 +12,7 @@ sidecar tools, model-facing schemas, executable schemas, prompt layers, settings
 surfaces, required permissions, and documentation. Hosted WindieOS backend
 implementation code is not part of an extension.
 
-The v1 convention is intentionally small:
+The v1 loader is intentionally small:
 
 ```text
 extensions/
@@ -22,6 +22,9 @@ extensions/
     ui/
     docs/
 ```
+
+`extension.json` is read by Electron main from `extensions/*/extension.json`.
+Set `WINDIE_AGENT_EXTENSIONS_DIR` to point at a different extensions directory.
 
 `extension.json` should describe the extension:
 
@@ -33,24 +36,36 @@ extensions/
   "tools": [
     {
       "name": "my_tool",
+      "description": "Run my local workflow.",
       "model_schema": "tools/my_tool.model.schema.json",
       "execution_schema": "tools/my_tool.execution.schema.json",
       "argument_resolution": "passthrough"
     }
   ],
-  "prompt_layers": [],
+  "prompt_layers": [
+    {
+      "id": "my-extension-guidance",
+      "type": "extension",
+      "priority": 70,
+      "content_path": "docs/prompt.md"
+    }
+  ],
   "required_permissions": []
 }
 ```
 
-Until a dynamic loader exists, extension code should be wired through the same
-paths as built-in tools:
+The loader contributes extension tools to `client_tool_manifest` and extension
+prompt layers to `client_prompt_layers`. Schema paths and `content_path` are
+resolved relative to the extension directory.
+
+Extension tool code still needs a sidecar implementation. For v1:
 
 1. Implement the local tool under `frontend/src/main/python/tools/`.
 2. Register it with the sidecar registry.
 3. Add executable schema export coverage in
    `frontend/src/main/python/tools/manifest.py`.
-4. Add the model-facing manifest entry in `frontend/src/main/tool_manifest.cjs`.
+4. Add model-facing and executable schema files under the extension `tools/`
+   directory, referenced by `extension.json`.
 5. Add or update docs under the extension `docs/` directory and the relevant
    canonical docs.
 6. Add tests for the manifest builder, sidecar schema export, and execution

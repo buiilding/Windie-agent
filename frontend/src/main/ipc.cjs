@@ -56,6 +56,9 @@ const {
   resolveWorkspaceRepoInstructionPromptLayers,
 } = require('./repo_instruction_runtime.cjs');
 const {
+  loadExtensionPromptLayers,
+} = require('./extension_manifest.cjs');
+const {
   handleRendererQuerySendFailure,
   prepareRendererQuerySend,
 } = require('./ipc/ipc_query_send_runtime.cjs');
@@ -1215,13 +1218,18 @@ function attachLocalRepoInstructionMessages(payload) {
       content: customInstructions,
     }]
     : [];
+  const extensionPromptLayers = loadExtensionPromptLayers();
 
   const workspacePath = typeof payload.workspace_path === 'string'
     ? payload.workspace_path.trim()
     : '';
   if (!workspacePath) {
-    return customPromptLayers.length > 0
-      ? { ...payload, client_prompt_layers: customPromptLayers }
+    const clientPromptLayers = [
+      ...extensionPromptLayers,
+      ...customPromptLayers,
+    ];
+    return clientPromptLayers.length > 0
+      ? { ...payload, client_prompt_layers: clientPromptLayers }
       : payload;
   }
 
@@ -1229,6 +1237,7 @@ function attachLocalRepoInstructionMessages(payload) {
   const repoInstructionPromptLayers = resolveWorkspaceRepoInstructionPromptLayers(workspacePath);
   const clientPromptLayers = [
     ...repoInstructionPromptLayers,
+    ...extensionPromptLayers,
     ...customPromptLayers,
   ];
   if (repoInstructionMessages.length === 0 && clientPromptLayers.length === 0) {

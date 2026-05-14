@@ -205,6 +205,13 @@
   color: var(--ui-text-muted);
 }
 
+.clone-settings-schema-viewer summary small {
+  display: block;
+  margin-top: 2px;
+  color: var(--ui-text-muted);
+  font-size: 10.5px;
+}
+
 .clone-settings-schema-viewer pre {
   overflow: auto;
   max-height: 240px;
@@ -215,6 +222,11 @@
   color: var(--ui-text-primary);
   font-size: 11px;
   line-height: 1.4;
+}
+
+.clone-settings-layer-list {
+  display: grid;
+  gap: 10px;
 }
 
 .clone-settings-row-action {

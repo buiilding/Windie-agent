@@ -8,6 +8,9 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 - Add client-owned tool manifests, prompt layers, Agent settings controls, sidecar
   executable schema export, and a mock backend for open-source extension work.
+- Load extension tool schemas and prompt layers from `extensions/*/extension.json`,
+  show active prompt layers in Agent settings, and cover the mock backend
+  query/tool-call loop with focused tests.
 
 ## 0.6.24 - 2026-05-13
 

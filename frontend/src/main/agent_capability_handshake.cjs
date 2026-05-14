@@ -1,6 +1,7 @@
 const {
-  buildBuiltinClientToolManifest,
+  buildClientToolManifest,
   getBuiltinClientToolNames,
+  getClientToolNames,
 } = require('./tool_manifest.cjs');
 
 const HANDSHAKE_REMOTE_TOOLS = Object.freeze([
@@ -63,14 +64,15 @@ function normalizeRequestedAgentPolicy(policy) {
 
 function buildAgentCapabilityHandshakePayload(options = {}) {
   const clientToolManifest = options.clientToolManifest
-    || buildBuiltinClientToolManifest({
+    || buildClientToolManifest({
       disabledTools: normalizeStringList(options.disabledTools) || [],
+      extensionsDir: options.extensionsDir,
     });
   const clientToolNames = Array.isArray(clientToolManifest?.tools)
     ? clientToolManifest.tools
       .map((tool) => (typeof tool?.name === 'string' ? tool.name.trim() : ''))
       .filter(Boolean)
-    : getBuiltinClientToolNames();
+    : getClientToolNames();
   const availableTools = normalizeStringList(options.availableTools)
     || [...clientToolNames, ...HANDSHAKE_REMOTE_TOOLS];
   const availableCoordinateMethods = normalizeStringList(options.availableCoordinateMethods)

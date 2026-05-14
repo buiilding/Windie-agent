@@ -37,6 +37,9 @@ repository.
   model-facing schemas for client-local tools.
 - Tool changes must update the client tool manifest, sidecar executable schema
   export, docs, and focused tests in the same change.
+- Extension tools must use `extensions/<id>/extension.json` for schema and
+  prompt-layer contributions, and must still register executable sidecar code
+  through the normal sidecar registry.
 - Local tools must not import private backend packages.
 - Backend remote tools must be documented separately from local sidecar tools.
 - Built-in grounded tools must preserve the model-schema vs execution-schema
