@@ -33,6 +33,15 @@ repository.
 - Tools execute on the frontend Python sidecar.
 - Hosted backend services own model orchestration, OCR, vision, embeddings, and
   semantic summarization.
+- Windie Agent owns local tool implementations, executable schemas, and
+  model-facing schemas for client-local tools.
+- Tool changes must update the client tool manifest, sidecar executable schema
+  export, docs, and focused tests in the same change.
+- Local tools must not import private backend packages.
+- Backend remote tools must be documented separately from local sidecar tools.
+- Built-in grounded tools must preserve the model-schema vs execution-schema
+  distinction. Use `backend_grounding` only when OCR/vision/prediction prepares
+  executable sidecar arguments; otherwise use `passthrough`.
 - Frontend and sidecar code must not import private backend Python packages.
 - Public backend interaction must go through HTTP/WebSocket transport clients.
 

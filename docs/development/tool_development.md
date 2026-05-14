@@ -8,9 +8,11 @@ read_when:
 
 Windie tool execution is split by boundary:
 
-- Hosted backend services own model-facing orchestration and public transport
-  contracts.
+- Hosted backend services own model orchestration, remote backend tools,
+  provider projection, and validation of client-provided tool manifests.
 - The public client sidecar executes local tools against the user's machine.
+- The public client owns model-facing and executable schemas for client-local
+  tools.
 - The renderer and Electron main bridge tool requests, progress, results, and
   transcript visibility.
 
@@ -27,15 +29,45 @@ Tool docs live under:
 When adding or changing a sidecar tool:
 
 1. Keep the tool implementation local to the sidecar.
-2. Return structured success/error payloads.
-3. Avoid real network/system side effects in unit tests.
-4. Update sidecar docs and focused tests in the same change.
-5. Confirm renderer/tool-output formatting still handles the result shape.
+2. Add or update its executable schema in `frontend/src/main/python/tools/manifest.py`.
+3. Add or update its model-facing manifest entry in `frontend/src/main/tool_manifest.cjs`.
+4. Choose `argument_resolution`:
+   - `passthrough` when model args are executable sidecar args.
+   - `backend_grounding` when backend OCR/vision/prediction must resolve target args.
+5. Return structured success/error payloads.
+6. Avoid real network/system side effects in unit tests.
+7. Update sidecar docs and focused tests in the same change.
+8. Confirm renderer/tool-output formatting still handles the result shape.
+
+## Prompt Layers
+
+Workspace `AGENTS.md` files and custom instructions are sent as
+`client_prompt_layers`. The hosted backend compiles those layers after its base
+system/tool protocol. Do not make sidecar code depend on backend prompt files.
+
+## Remote Backend Tools
+
+Remote tools, including `web_search`, execute on hosted WindieOS infrastructure.
+Expose them through remote-tool settings/toggles and document them separately
+from local sidecar tools.
+
+## Mock Backend
+
+Open-source contributors can run a local mock backend:
+
+```bash
+node scripts/mock-backend.cjs
+```
+
+Then point the app at `ws://127.0.0.1:8765/ws` using the normal backend endpoint
+environment/config path. The mock accepts handshakes, client manifests, prompt
+layers, and basic query streaming without private backend access.
 
 ## Tool Registry
 
 See:
 
+- [Extension Convention](extensions.md)
 - [Sidecar Tools Docs Hub](../frontend/sidecar/tools/README.md)
 - [Tool Registry Schema and Result Normalization](../frontend/sidecar/tools/registry/tool_registry_exposed_schema_and_result_normalization_reference.md)
 - [Frontend Tool Base Interface](../frontend/sidecar/tools/contracts/frontend_tool_base_interface_and_simple_tool_result_contract_reference.md)

@@ -101,6 +101,7 @@ client repo.
 - [Environment Setup](../development/environment_setup.md)
 - [Testing](../development/testing.md)
 - [Tool Development](../development/tool_development.md)
+- [Extension Convention](../development/extensions.md)
 
 ## Reference
 

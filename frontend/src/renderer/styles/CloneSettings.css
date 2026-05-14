@@ -122,6 +122,101 @@
   min-width: 0;
 }
 
+.clone-settings-row-stack {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.clone-settings-textarea {
+  width: 100%;
+  min-height: 132px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--ui-border-subtle);
+  border-radius: 8px;
+  resize: vertical;
+  background: var(--ui-surface-elevated);
+  color: var(--ui-text-primary);
+  font: inherit;
+  line-height: 1.45;
+}
+
+.clone-settings-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.clone-settings-tool-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border-subtle);
+  border-radius: 8px;
+  background: var(--ui-surface-elevated);
+}
+
+.clone-settings-tool-card {
+  border: 1px solid var(--ui-border-subtle);
+  border-radius: 8px;
+  background: var(--ui-surface-elevated);
+}
+
+.clone-settings-tool-card .clone-settings-tool-toggle {
+  border: 0;
+  background: transparent;
+}
+
+.clone-settings-tool-toggle span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+  color: var(--ui-text-primary);
+}
+
+.clone-settings-tool-toggle small,
+.clone-settings-tool-status {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--ui-text-muted);
+}
+
+.clone-settings-tool-status {
+  margin: 0;
+  padding: 0 12px 10px;
+}
+
+.clone-settings-tool-status-error {
+  color: color-mix(in srgb, #ff9d90 76%, var(--ui-text-primary) 24%);
+}
+
+.clone-settings-schema-viewer {
+  padding: 0 12px 12px;
+}
+
+.clone-settings-schema-viewer summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--ui-text-muted);
+}
+
+.clone-settings-schema-viewer pre {
+  overflow: auto;
+  max-height: 240px;
+  margin: 8px 0 0;
+  padding: 10px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ui-neutral-black) 80%, transparent 20%);
+  color: var(--ui-text-primary);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .clone-settings-row-action {
   align-items: center;
 }

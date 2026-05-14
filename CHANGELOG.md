@@ -6,6 +6,13 @@ All notable public-client changes to WindieOS will be documented in this file.
 
 ### Changed
 
+- Add client-owned tool manifests, prompt layers, Agent settings controls, sidecar
+  executable schema export, and a mock backend for open-source extension work.
+
+## 0.6.24 - 2026-05-13
+
+### Changed
+
 - Restore setup and permission onboarding progress labels to white instead of
   Windie blue.
 - Ensure the Windie dedicated browser always has a page target before
