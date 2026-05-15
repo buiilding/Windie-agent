@@ -1,11 +1,23 @@
-const { app } = require('electron');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const INSTALL_AUTH_FILENAME = 'install-auth.json';
 
+function getElectronApp() {
+  try {
+    return require('electron').app;
+  } catch (_error) {
+    return null;
+  }
+}
+
 function getInstallAuthStatePath() {
-  return path.join(app.getPath('userData'), INSTALL_AUTH_FILENAME);
+  const electronApp = getElectronApp();
+  const userDataPath = electronApp && typeof electronApp.getPath === 'function'
+    ? electronApp.getPath('userData')
+    : path.join(os.tmpdir(), 'windieos');
+  return path.join(userDataPath, INSTALL_AUTH_FILENAME);
 }
 
 function normalizeInstallAuthState(payload) {

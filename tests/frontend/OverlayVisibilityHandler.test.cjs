@@ -23,6 +23,7 @@ describe('overlay_visibility_handler', () => {
     expect(showMainWindow).toHaveBeenCalledWith({
       focus: true,
       maximize: false,
+      open: '',
       targetDisplayAffinity: null,
     });
   });
@@ -44,6 +45,7 @@ describe('overlay_visibility_handler', () => {
     expect(showMainWindow).toHaveBeenCalledWith({
       focus: true,
       maximize: true,
+      open: '',
       targetDisplayAffinity: {
         monitor_id: '2',
         bounds: { x: 1920, y: 0, width: 2560, height: 1440 },
@@ -214,6 +216,7 @@ describe('overlay_visibility_handler', () => {
     expect(showMainWindow).toHaveBeenCalledWith({
       focus: false,
       maximize: false,
+      open: '',
       targetDisplayAffinity: null,
     });
   });

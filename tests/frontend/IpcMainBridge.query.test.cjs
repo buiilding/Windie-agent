@@ -1,5 +1,37 @@
 /** @jest-environment node */
 
+jest.mock('electron', () => ({
+  ipcMain: {
+    handle: jest.fn(),
+    on: jest.fn(),
+  },
+  BrowserWindow: {
+    fromWebContents: jest.fn(),
+  },
+  screen: {
+    getAllDisplays: jest.fn(() => ([
+      {
+        id: 1,
+        bounds: { x: 0, y: 0, width: 1920, height: 1080 },
+        workArea: { x: 0, y: 0, width: 1920, height: 1040 },
+      },
+    ])),
+    getPrimaryDisplay: jest.fn(() => ({
+      id: 1,
+      bounds: { x: 0, y: 0, width: 1920, height: 1080 },
+      workArea: { x: 0, y: 0, width: 1920, height: 1040 },
+    })),
+    getDisplayMatching: jest.fn(() => ({
+      id: 1,
+      bounds: { x: 0, y: 0, width: 1920, height: 1080 },
+      workArea: { x: 0, y: 0, width: 1920, height: 1040 },
+    })),
+  },
+  app: {
+    getPath: jest.fn(() => '/tmp/appdata'),
+  },
+}), { virtual: true });
+
 const fs = require('fs');
 const os = require('os');
 const path = require('path');

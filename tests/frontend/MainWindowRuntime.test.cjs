@@ -1,6 +1,9 @@
 /** @jest-environment node */
 
 jest.mock('electron', () => ({
+  app: {
+    getPath: jest.fn(() => '/tmp/windieos-test-user-data'),
+  },
   nativeImage: {
     createFromPath: jest.fn(() => ({ isEmpty: () => false })),
     createFromDataURL: jest.fn(() => ({ isEmpty: () => false })),
@@ -609,6 +612,7 @@ describe('main_window_runtime createMainWindow', () => {
       getFrontendConfig: deps.getLatestFrontendConfig,
       isPackaged: false,
       permissionStatePath: '/tmp/windieos-permission-state.json',
+      authStatePath: '/tmp/windieos-test-user-data/install-auth.json',
     });
   });
 
